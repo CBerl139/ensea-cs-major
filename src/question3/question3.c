@@ -4,7 +4,7 @@
 #define DEFAULT_MESSAGE "\nnot a function"
 #define MAX_INPUT_SIZE 100
 
-#include "question2.h"
+#include "question3.h"
 
 int main(int argc, char *argv){
 	char userInput[MAX_INPUT_SIZE];
