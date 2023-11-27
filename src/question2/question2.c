@@ -19,11 +19,6 @@ int main(int argc, char *argv){
 		read(STDOUT_FILENO,userInput,MAX_INPUT_SIZE);
 		userInput[strcspn(userInput, "\n")] = '\0';
 		
-		if (!strcmp(userInput,"exit")){
-			write(STDOUT_FILENO,BYEBYE_MESSAGE,strlen(BYEBYE_MESSAGE));
-			return EXIT_SUCCESS;
-		}
-		
 		//fork to keep the program running after a function call
 		pid_t pid = fork();
 		
@@ -32,6 +27,7 @@ int main(int argc, char *argv){
 			execlp(userInput,userInput,NULL);
 			return EXIT_SUCCESS;
 		}
+		//wait for child to finish its actions
 		wait(NULL);
 	}
 }
