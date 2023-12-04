@@ -1,7 +1,6 @@
 #define WELCOME_MESSAGE "Welcome to ENSEA Tiny Shell.\nType 'exit' to quit."
 #define WAITING_FOR_INPUT_MESSAGE "\nenseash % "
 #define BYEBYE_MESSAGE "Bye Bye...\n"
-#define DEFAULT_MESSAGE "\nnot a function"
 #define MAX_INPUT_SIZE 100
 
 #include "question7.h"
