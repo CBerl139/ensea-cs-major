@@ -8,7 +8,7 @@ Creation of a tiny shell
 1. Compilation :
 When in src directory :
 ```
-& gcc ./questionX/questionX.c -o enseash
+& gcc ./questionX/questionX.c -o ./questionX/enseash
 ```
 2. Execution :
 When in src directory :
