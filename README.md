@@ -20,12 +20,12 @@ Where X is the number of the question
 
 To exit the shell :
 ```
-enseash & exit
+enseash % exit
 ```
 Functions that you can test :
 ```
-enseash & date
-enseash & hostname -i
+enseash % date
+enseash % hostname -i
 ```
 
 # What this code does
