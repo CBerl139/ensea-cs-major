@@ -7,7 +7,6 @@
 #include "question6.h"
 
 int splitStringBySpaces(char * inputString, char ** outputString){
-	//function to turn a char * into a char ** split by spaces
 	int i = 0;
 	
 	char * token = strtok(inputString, " ");
@@ -30,14 +29,12 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused))){
 	char signalexitCode[100];
 	struct timespec start_time, end_time;
 
-	//display welcome message
 	write(STDOUT_FILENO,WELCOME_MESSAGE,strlen(WELCOME_MESSAGE));
-	//display "enseash % "
 	write(STDOUT_FILENO,WAITING_FOR_INPUT_MESSAGE,strlen(WAITING_FOR_INPUT_MESSAGE));
 	
 	while (1){
-		//read user input
 		read(STDOUT_FILENO,userInput,MAX_INPUT_SIZE);
+		//replace \n by \0 : (execlp man pages : "second argument must be terminated by a null pointer")
 		userInput[strcspn(userInput, "\n")] = '\0';
 		
 		splitStringBySpaces(userInput,userInputSplitBySpaces);
@@ -50,7 +47,6 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused))){
 		//get start time
 		clock_gettime(CLOCK_REALTIME,&start_time);
 		
-		//fork to keep the program running after a function call
 		pid_t pid = fork();
 		
 		if (pid == 0){			
