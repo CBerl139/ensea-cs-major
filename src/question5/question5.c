@@ -4,13 +4,13 @@
 #define DEFAULT_MESSAGE "\nnot a function"
 #define MAX_INPUT_SIZE 100
 
-#include "question4.h"
+#include "question5.h"
 
-int main(int argc, char **argv){
+int main(int argc __attribute__((unused)), char **argv __attribute__((unused))){
 	int status;
 	char userInput[MAX_INPUT_SIZE];
 	char signalexitCode[100];
-
+	struct timespec start_time, end_time;
 
 	//display welcome message
 	write(STDOUT_FILENO,WELCOME_MESSAGE,strlen(WELCOME_MESSAGE));
@@ -26,6 +26,9 @@ int main(int argc, char **argv){
 			write(STDOUT_FILENO,BYEBYE_MESSAGE,strlen(BYEBYE_MESSAGE));
 			return EXIT_SUCCESS;
 		}
+				
+		//get start time
+		clock_gettime(CLOCK_REALTIME,&start_time);
 		
 		//fork to keep the program running after a function call
 		pid_t pid = fork();
@@ -35,17 +38,19 @@ int main(int argc, char **argv){
 			execlp(userInput,userInput,NULL);			
 			return EXIT_FAILURE;
 		}
+		
 		wait(&status);
+		//get end time
+		clock_gettime(CLOCK_REALTIME,&end_time);
 		
 		//display exit or signal code
 		if (WIFEXITED(status)){
-			snprintf(signalexitCode,MAX_INPUT_SIZE,"enseash [exit:%d] ",WEXITSTATUS(status));
+			snprintf(signalexitCode,MAX_INPUT_SIZE,"enseash [exit:%d|%ld ms] ",WEXITSTATUS(status),(end_time.tv_nsec - start_time.tv_nsec) / 1000000);
 			write(STDOUT_FILENO,signalexitCode,strlen(signalexitCode));
 		} else if(WIFSIGNALED(status)){
-			snprintf(signalexitCode,MAX_INPUT_SIZE,"enseash [signal:%d] ",WTERMSIG(status));
+			snprintf(signalexitCode,MAX_INPUT_SIZE,"enseash [signal:%d|%ld ms] ",WTERMSIG(status),(end_time.tv_nsec - start_time.tv_nsec) / 1000000);
 			write(STDOUT_FILENO,signalexitCode,strlen(signalexitCode));
 		}
-		
 		write(STDOUT_FILENO,"% ",strlen("% "));
 	}
 }
