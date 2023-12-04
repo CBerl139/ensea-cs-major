@@ -2,7 +2,7 @@
 Computer Science Major S7 at ENSEA :
 Creation of a tiny shell
 
-[ensea.fr](https://ensea.fr/)
+[ensea.fr](https://www.ensea.fr/fr)
 
 # How to launch the code
 1. Compilation :
