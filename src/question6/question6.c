@@ -4,11 +4,29 @@
 #define DEFAULT_MESSAGE "\nnot a function"
 #define MAX_INPUT_SIZE 100
 
-#include "question5.h"
+#include "question6.h"
+
+int splitStringBySpaces(char * inputString, char ** outputString){
+	//function to turn a char * into a char ** split by spaces
+	int i = 0;
+	
+	char * token = strtok(inputString, " ");
+	
+	while (token != NULL){
+		outputString[i] = token;
+		token = strtok(NULL, " ");
+		i++;
+	}
+	//execvp man pages : "the array must be terminated by a NULL pointer" :
+	outputString[i] = NULL;
+	
+	return 0;
+}
 
 int main(int argc __attribute__((unused)), char **argv __attribute__((unused))){
 	int status;
 	char userInput[MAX_INPUT_SIZE];
+	char * userInputSplitBySpaces[MAX_INPUT_SIZE];
 	char signalexitCode[100];
 	struct timespec start_time, end_time;
 
@@ -21,6 +39,8 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused))){
 		//read user input
 		read(STDOUT_FILENO,userInput,MAX_INPUT_SIZE);
 		userInput[strcspn(userInput, "\n")] = '\0';
+		
+		splitStringBySpaces(userInput,userInputSplitBySpaces);
 		
 		if (!strcmp(userInput,"exit")){
 			write(STDOUT_FILENO,BYEBYE_MESSAGE,strlen(BYEBYE_MESSAGE));
@@ -35,7 +55,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused))){
 		
 		if (pid == 0){			
 			//execute function inputed by user
-			execlp(userInput,userInput,NULL);			
+			execvp(userInputSplitBySpaces[0],userInputSplitBySpaces);			
 			return EXIT_FAILURE;
 		}
 		
