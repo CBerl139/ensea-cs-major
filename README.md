@@ -10,7 +10,7 @@ When in src directory :
 ```
 & gcc ./questionX/questionX.c -o enseash
 ```
-3. Execution :
+2. Execution :
 When in src directory :
 ```
 & ./questionX/enseash
